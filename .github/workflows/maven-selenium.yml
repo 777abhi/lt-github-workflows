@@ -34,7 +34,7 @@ jobs:
         run: |
           ls
           mvn clean
-          mvn -ntp -B -q clean test -Dsurefire.suiteXmlFiles=test_control/e2e_integration/regression_testng.xml -Dwebdriver.chrome.url=http://selenium:4444/wd/hub
+          mvn -ntp -B -q clean test -Dsurefire.suiteXmlFiles=test_control/e2e_integration/newFeature.xml -Dwebdriver.chrome.url=http://selenium:4444/wd/hub
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3
         if: always()
