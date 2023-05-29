@@ -1,0 +1,33 @@
+name: nodejs-playwright
+
+on:
+  workflow_call:
+    inputs:
+      test_type:
+        description: 'Type of test - sanity, regression, api, newFeature'
+        default: 'sanity'
+        required: true
+        type: string
+
+jobs:
+  run-test-and-upload-report:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.34.0-focal
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Install dependencies
+      run: npm ci
+    - name: Run Playwright tests
+      run: npm run test:${{ inputs.test_type }}
+    
+    - uses: actions/upload-artifact@v3
+      if: always()  
+      with:
+        name: playwright-report-${{ inputs.test_type }}
+        path: playwright-report/
+        retention-days: 30
