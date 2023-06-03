@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: yarn install
     - name: Run Playwright tests
-      run: npm run test:${{ inputs.test_type }}
+      run: yarn run test:${{ inputs.test_type }}
     
     - uses: actions/upload-artifact@v3
       if: always()  
