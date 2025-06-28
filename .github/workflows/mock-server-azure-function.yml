@@ -47,7 +47,7 @@ jobs:
           echo "Waiting for mock server to be ready..."
           timeout=120
           while [ $timeout -gt 0 ]; do
-            if curl -f $SERVER_URL/todos; then
+            if curl -f $SERVER_URL/health; then
               echo "Mock server is ready!"
               break
             fi
@@ -65,7 +65,7 @@ jobs:
         if: contains(inputs.SERVER_URL, 'localhost')
         run: |
           echo "Testing mock server endpoints..."
-          curl -f $SERVER_URL/todos
+          curl -f $SERVER_URL/api/todos
           echo "Mock server tests passed!"
 
       - name: Install Azure Functions Core Tools
